@@ -15,8 +15,13 @@ class TodoListView: CustomView {
     weak var delegate: TodoListViewDelegate?
     
     //MARK: - Variables
-    // Add private lazy variables here
-    
+    private lazy var tableView: UITableView = {
+        let element = UITableView()
+        
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
+
     //MARK: - setViews
     override func setViews() {
         super.setViews()

@@ -8,6 +8,13 @@
 import UIKit
 
 class CustomView: UIView {
+    
+    private lazy var bgNavBarImageView: UIImageView = {
+        let element = UIImageView()
+        element.backgroundColor = .systemBlue
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,9 +31,19 @@ class CustomView: UIView {
     /// Set your view and its subviews here.
     func setViews() {
         backgroundColor = .systemBackground
+        
+        self.addSubview(bgNavBarImageView)
     }
 
     /// Layout your subviews here.
-    func layoutViews() {}
+    func layoutViews() {
+        NSLayoutConstraint.activate([
+            bgNavBarImageView.topAnchor.constraint(equalTo: self.topAnchor),
+            bgNavBarImageView.heightAnchor.constraint(equalToConstant: 100),
+            bgNavBarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            bgNavBarImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+        ])
+        
+    }
     
 }

@@ -15,4 +15,13 @@ class CustomViewController<V: CustomView>: UIViewController {
     var customView: V {
         return view as! V
     }
+    
+    func setupNavigationBar(textLabel: String) {
+        let label = UILabel()
+        label.textColor = .white
+        label.text = textLabel
+        label.font = .boldSystemFont(ofSize: 25)
+        label.textAlignment = .center
+        navigationItem.titleView = label
+    }
 }
