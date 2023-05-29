@@ -15,7 +15,7 @@ class TodoListView: CustomView {
     weak var delegate: TodoListViewDelegate?
     
     //MARK: - Variables
-    private lazy var tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let element = UITableView()
         
         element.translatesAutoresizingMaskIntoConstraints = false
@@ -26,14 +26,19 @@ class TodoListView: CustomView {
     override func setViews() {
         super.setViews()
         
-        // Add subviews here
+        self.addSubview(tableView)
     }
     
     //MARK: - layoutViews
     override func layoutViews() {
         super.layoutViews()
         
-        // Add constraints here
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+        ])
     }
 }
 
