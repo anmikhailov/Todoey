@@ -9,16 +9,41 @@ import UIKit
 
 class TodoListViewController: CustomViewController<TodoListView> {
     
-    let itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
+    var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar(textLabel: "Todoey")
+        setupNavigationBarTitle(textLabel: "Todoey")
+        setupNavigationBar()
         
         customView.delegate = self
         
         customView.tableView.dataSource = self
         customView.tableView.delegate = self
+    }
+    
+    func setupNavigationBar() {
+        let addButtonAction = UIAction(title: "buttonAction") { (action) in
+            var textField = UITextField()
+            let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+                self.itemArray.append(textField.text!)
+                self.customView.tableView.reloadData()
+            }
+            
+            alert.addTextField { (alertTextField) in
+                alertTextField.placeholder = "Create new item"
+                textField = alertTextField
+            }
+            
+            alert.addAction(action)
+            self.present(alert, animated: true)
+        }
+        
+        let button = UIBarButtonItem(systemItem: .add,
+                                     primaryAction: addButtonAction)
+        navigationItem.rightBarButtonItem = button
+        navigationController?.navigationBar.tintColor = .white
     }
 }
 
@@ -40,5 +65,8 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        print(indexPath.row)
+    }
 }

@@ -16,7 +16,7 @@ class CustomViewController<V: CustomView>: UIViewController {
         return view as! V
     }
     
-    func setupNavigationBar(textLabel: String) {
+    func setupNavigationBarTitle(textLabel: String) {
         let label = UILabel()
         label.textColor = .white
         label.text = textLabel
