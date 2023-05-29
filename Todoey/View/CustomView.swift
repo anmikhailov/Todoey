@@ -11,7 +11,7 @@ class CustomView: UIView {
     
     private lazy var bgNavBarImageView: UIImageView = {
         let element = UIImageView()
-        element.backgroundColor = .systemBlue
+        element.backgroundColor = .systemCyan
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
