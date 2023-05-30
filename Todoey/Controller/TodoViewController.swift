@@ -22,9 +22,7 @@ class TodoListViewController: CustomViewController<TodoListView> {
         customView.tableView.dataSource = self
         customView.tableView.delegate = self
         
-        let newItem = Item()
-        newItem.title = "Find Mike"
-        itemArray.append(newItem)
+        loadItems()
     }
     
     func setupNavigationBar() {
@@ -65,6 +63,17 @@ class TodoListViewController: CustomViewController<TodoListView> {
             try data.write(to: dataFilePath!)
         } catch {
             print("Error encoding item array, \(error)")
+        }
+    }
+    
+    func loadItems() {
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            do {
+                itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("Error decoding items, \(error)")
+            }
         }
     }
 }
