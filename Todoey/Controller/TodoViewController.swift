@@ -9,9 +9,8 @@ import UIKit
 
 class TodoListViewController: CustomViewController<TodoListView> {
     
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Items.plist")
     var itemArray: [Item] = []
-    
-    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +24,7 @@ class TodoListViewController: CustomViewController<TodoListView> {
         
         let newItem = Item()
         newItem.title = "Find Mike"
-        newItem.done = true
         itemArray.append(newItem)
-        
-//        if let array = defaults.array(forKey: "TodoListArray") as? [String] {
-//            itemArray = array
-//        }
     }
     
     func setupNavigationBar() {
@@ -43,9 +37,7 @@ class TodoListViewController: CustomViewController<TodoListView> {
                 newItem.title = textField.text!
                 
                 self.itemArray.append(newItem)
-                
-                self.defaults.set(self.itemArray, forKey: "TodoListArray")
-                
+                self.saveItems()
                 self.customView.tableView.reloadData()
             }
             
@@ -63,6 +55,18 @@ class TodoListViewController: CustomViewController<TodoListView> {
         navigationItem.rightBarButtonItem = button
         navigationController?.navigationBar.tintColor = .white
     }
+    
+    //MARK: - Model Manipulation Methods
+    func saveItems() {
+        let encoder = PropertyListEncoder()
+        
+        do {
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        } catch {
+            print("Error encoding item array, \(error)")
+        }
+    }
 }
 
 //MARK: - TodoListViewDelegate
@@ -79,9 +83,10 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "tableViewCell")
-        cell.textLabel?.text = itemArray[indexPath.row].title
+        let item = itemArray[indexPath.row]
         
-        cell.accessoryType = itemArray[indexPath.row].done == true ? .checkmark : .none
+        cell.textLabel?.text = item.title
+        cell.accessoryType = item.done == true ? .checkmark : .none
         
         return cell
     }
@@ -90,6 +95,7 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         itemArray[indexPath.row].done.toggle()
+        saveItems()
         customView.tableView.reloadData()
     }
 }
