@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		841677592A25AD0D00BC90C8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841677582A25AD0D00BC90C8 /* Item.swift */; };
 		8424887E2A251E5F00879877 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424887D2A251E5F00879877 /* AppDelegate.swift */; };
 		842488802A251E5F00879877 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424887F2A251E5F00879877 /* SceneDelegate.swift */; };
 		842488872A251E6100879877 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 842488862A251E6100879877 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		841677582A25AD0D00BC90C8 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		8424887A2A251E5F00879877 /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8424887D2A251E5F00879877 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8424887F2A251E5F00879877 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +43,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		841677572A25ACF400BC90C8 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				841677582A25AD0D00BC90C8 /* Item.swift */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
 		842488712A251E5F00879877 = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +103,7 @@
 		842488942A251F0600879877 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				841677572A25ACF400BC90C8 /* DataModel */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -171,6 +182,7 @@
 				8424889A2A251F8D00879877 /* TodoViewController.swift in Sources */,
 				842488962A251F2300879877 /* CustomView.swift in Sources */,
 				8424887E2A251E5F00879877 /* AppDelegate.swift in Sources */,
+				841677592A25AD0D00BC90C8 /* Item.swift in Sources */,
 				842488802A251E5F00879877 /* SceneDelegate.swift in Sources */,
 				842488982A251F2E00879877 /* CustomViewController.swift in Sources */,
 			);

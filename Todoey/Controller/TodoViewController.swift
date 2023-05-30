@@ -9,7 +9,7 @@ import UIKit
 
 class TodoListViewController: CustomViewController<TodoListView> {
     
-    var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
+    var itemArray: [Item] = []
     
     let defaults = UserDefaults.standard
     
@@ -23,9 +23,14 @@ class TodoListViewController: CustomViewController<TodoListView> {
         customView.tableView.dataSource = self
         customView.tableView.delegate = self
         
-        if let array = defaults.array(forKey: "TodoListArray") as? [String] {
-            itemArray = array
-        }
+        let newItem = Item()
+        newItem.title = "Find Mike"
+        newItem.done = true
+        itemArray.append(newItem)
+        
+//        if let array = defaults.array(forKey: "TodoListArray") as? [String] {
+//            itemArray = array
+//        }
     }
     
     func setupNavigationBar() {
@@ -33,7 +38,11 @@ class TodoListViewController: CustomViewController<TodoListView> {
             var textField = UITextField()
             let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
             let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-                self.itemArray.append(textField.text!)
+                
+                let newItem = Item()
+                newItem.title = textField.text!
+                
+                self.itemArray.append(newItem)
                 
                 self.defaults.set(self.itemArray, forKey: "TodoListArray")
                 
@@ -70,12 +79,17 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "tableViewCell")
-        cell.textLabel?.text = itemArray[indexPath.row]
+        cell.textLabel?.text = itemArray[indexPath.row].title
+        
+        cell.accessoryType = itemArray[indexPath.row].done == true ? .checkmark : .none
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print(indexPath.row)
+        
+        itemArray[indexPath.row].done.toggle()
+        customView.tableView.reloadData()
     }
 }
