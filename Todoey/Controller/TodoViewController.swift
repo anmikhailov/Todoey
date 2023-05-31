@@ -60,8 +60,6 @@ class TodoListViewController: CustomViewController<TodoListView> {
     
     //MARK: - Model Manipulation Methods
     func saveItems() {
-        let encoder = PropertyListEncoder()
-        
         do {
             try context.save()
         } catch {
@@ -106,6 +104,9 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         itemArray[indexPath.row].done.toggle()
+//        context.delete(itemArray[indexPath.row])
+//        itemArray.remove(at: indexPath.row)
+        
         saveItems()
         customView.tableView.reloadData()
     }
