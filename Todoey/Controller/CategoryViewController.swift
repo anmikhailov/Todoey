@@ -44,7 +44,7 @@ class CategoryViewController: CustomViewController<CategoryView> {
             }
 
             alert.addTextField { (alertTextField) in
-                alertTextField.placeholder = "Create new item"
+                alertTextField.placeholder = "Create new category"
                 textField = alertTextField
             }
 
@@ -96,6 +96,10 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        customView.tableView.reloadData()
+        customView.tableView.deselectRow(at: indexPath, animated: true)
+        
+        let destinationVC = TodoListViewController()
+        destinationVC.selectedCategory = categoryArray[indexPath.row]
+        navigationController?.pushViewController(destinationVC, animated: true)
     }
 }
