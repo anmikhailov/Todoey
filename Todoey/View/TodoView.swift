@@ -21,12 +21,19 @@ class TodoListView: CustomView {
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
+    
+    lazy var searchBar: UISearchBar = {
+        let element = UISearchBar()
+        element.translatesAutoresizingMaskIntoConstraints = false
+        return element
+    }()
 
     //MARK: - setViews
     override func setViews() {
         super.setViews()
         
         self.addSubview(tableView)
+        self.addSubview(searchBar)
     }
     
     //MARK: - layoutViews
@@ -34,7 +41,12 @@ class TodoListView: CustomView {
         super.layoutViews()
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            searchBar.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: 70),
+            searchBar.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: searchBar.safeAreaLayoutGuide.bottomAnchor),
             tableView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),

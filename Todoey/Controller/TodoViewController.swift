@@ -22,6 +22,7 @@ class TodoListViewController: CustomViewController<TodoListView> {
         
         customView.tableView.dataSource = self
         customView.tableView.delegate = self
+        customView.searchBar.delegate = self
         
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
@@ -67,8 +68,7 @@ class TodoListViewController: CustomViewController<TodoListView> {
         }
     }
     
-    func loadItems() {
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
         do {
             itemArray = try context.fetch(request)
         } catch {
@@ -109,5 +109,29 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         
         saveItems()
         customView.tableView.reloadData()
+    }
+}
+
+//MARK: - UISearchBarDelegate
+extension TodoListViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        loadItems(with: request)
+        
+        customView.tableView.reloadData()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+            customView.tableView.reloadData()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
     }
 }
