@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8416775C2A27C30000BC90C8 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8416775A2A27C30000BC90C8 /* DataModel.xcdatamodeld */; };
+		841677812A28DABE00BC90C8 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841677802A28DABE00BC90C8 /* CategoryViewController.swift */; };
+		841677832A28DACC00BC90C8 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841677822A28DACC00BC90C8 /* CategoryView.swift */; };
 		8424887E2A251E5F00879877 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424887D2A251E5F00879877 /* AppDelegate.swift */; };
 		842488802A251E5F00879877 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424887F2A251E5F00879877 /* SceneDelegate.swift */; };
 		842488872A251E6100879877 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 842488862A251E6100879877 /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		8416775B2A27C30000BC90C8 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		841677802A28DABE00BC90C8 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
+		841677822A28DACC00BC90C8 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		8424887A2A251E5F00879877 /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8424887D2A251E5F00879877 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8424887F2A251E5F00879877 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				842488952A251F2300879877 /* CustomView.swift */,
+				841677822A28DACC00BC90C8 /* CategoryView.swift */,
 				8424889B2A251F9E00879877 /* TodoView.swift */,
 			);
 			path = View;
@@ -95,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				842488972A251F2E00879877 /* CustomViewController.swift */,
+				841677802A28DABE00BC90C8 /* CategoryViewController.swift */,
 				842488992A251F8D00879877 /* TodoViewController.swift */,
 			);
 			path = Controller;
@@ -182,9 +188,11 @@
 				8416775C2A27C30000BC90C8 /* DataModel.xcdatamodeld in Sources */,
 				8424889A2A251F8D00879877 /* TodoViewController.swift in Sources */,
 				842488962A251F2300879877 /* CustomView.swift in Sources */,
+				841677812A28DABE00BC90C8 /* CategoryViewController.swift in Sources */,
 				8424887E2A251E5F00879877 /* AppDelegate.swift in Sources */,
 				842488802A251E5F00879877 /* SceneDelegate.swift in Sources */,
 				842488982A251F2E00879877 /* CustomViewController.swift in Sources */,
+				841677832A28DACC00BC90C8 /* CategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

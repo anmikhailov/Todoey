@@ -15,7 +15,7 @@ class TodoListViewController: CustomViewController<TodoListView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBarTitle(textLabel: "Todoey")
+        setupNavigationBarTitle(textLabel: "Items")
         setupNavigationBar()
         
         customView.delegate = self
