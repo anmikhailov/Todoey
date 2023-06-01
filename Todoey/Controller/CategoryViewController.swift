@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import CoreData
 
 class CategoryViewController: CustomViewController<CategoryView> {
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var categoryArray: [Category] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,40 +19,59 @@ class CategoryViewController: CustomViewController<CategoryView> {
         setupNavigationBarTitle(textLabel: "Todoey")
         setupNavigationBar()
         
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        
         customView.delegate = self
         
         customView.tableView.dataSource = self
         customView.tableView.delegate = self
+        
+        loadCategories()
     }
     
     func setupNavigationBar() {
         let addButtonAction = UIAction(title: "buttonAction") { (action) in
-//            var textField = UITextField()
-//            let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
-//            let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-//                
-//                let newItem = Item(context: self.context)
-//                newItem.title = textField.text!
-//                newItem.done = false
-//                
-//                self.itemArray.append(newItem)
-//                self.saveItems()
-//                self.customView.tableView.reloadData()
-//            }
-//            
-//            alert.addTextField { (alertTextField) in
-//                alertTextField.placeholder = "Create new item"
-//                textField = alertTextField
-//            }
-//            
-//            alert.addAction(action)
-//            self.present(alert, animated: true)
+            var textField = UITextField()
+            let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
+            let action = UIAlertAction(title: "Add Category", style: .default) { (action) in
+
+                let newCategory = Category(context: self.context)
+                newCategory.name = textField.text!
+
+                self.categoryArray.append(newCategory)
+                self.saveCategories()
+                self.customView.tableView.reloadData()
+            }
+
+            alert.addTextField { (alertTextField) in
+                alertTextField.placeholder = "Create new item"
+                textField = alertTextField
+            }
+
+            alert.addAction(action)
+            self.present(alert, animated: true)
         }
         
         let button = UIBarButtonItem(systemItem: .add,
                                      primaryAction: addButtonAction)
         navigationItem.rightBarButtonItem = button
         navigationController?.navigationBar.tintColor = .white
+    }
+    
+    func saveCategories() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
+    }
+    
+    func loadCategories(with request: NSFetchRequest<Category> = Category.fetchRequest()) {
+        do {
+            categoryArray = try context.fetch(request)
+        } catch {
+            print("\(error)")
+        }
     }
 }
 
@@ -61,13 +84,18 @@ extension CategoryViewController: CategoryViewDelegate {
 //MARK: - UITableViewDataSource, UITableViewDelegate
 extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return categoryArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "tableViewCell")
+        let category = categoryArray[indexPath.row]
+        cell.textLabel?.text = category.name
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        customView.tableView.reloadData()
+    }
 }

@@ -24,8 +24,6 @@ class TodoListViewController: CustomViewController<TodoListView> {
         customView.tableView.delegate = self
         customView.searchBar.delegate = self
         
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        
         loadItems()
     }
     
@@ -74,7 +72,6 @@ class TodoListViewController: CustomViewController<TodoListView> {
         } catch {
             print("\(error)")
         }
-        
     }
 }
 
