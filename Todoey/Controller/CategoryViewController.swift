@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import SwipeCellKit
 
 class CategoryViewController: CustomViewController<CategoryView> {
     
@@ -87,8 +88,17 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         return categoryArray.count
     }
     
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = UITableViewCell(style: .default, reuseIdentifier: "tableViewCell")
+//        let category = categoryArray[indexPath.row]
+//        cell.textLabel?.text = category.name
+//        return cell
+//    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "tableViewCell")
+        tableView.register(CustomCell.self, forCellReuseIdentifier: "CustomCell")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
         let category = categoryArray[indexPath.row]
         cell.textLabel?.text = category.name
         return cell
@@ -101,5 +111,33 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         let destinationVC = TodoListViewController()
         destinationVC.selectedCategory = categoryArray[indexPath.row]
         navigationController?.pushViewController(destinationVC, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+}
+
+//MARK: - SwipeTableViewCellDelegate
+extension CategoryViewController: SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            self.context.delete(self.categoryArray[indexPath.row])
+            self.categoryArray.remove(at: indexPath.row)
+            self.saveCategories()
+        }
+        
+        // customize the action appearance
+        deleteAction.image = UIImage(named: "delete")
+        
+        return [deleteAction]
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeOptions {
+        var options = SwipeOptions()
+        options.expansionStyle = .destructive
+        return options
     }
 }
