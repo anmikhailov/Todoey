@@ -22,6 +22,7 @@
 		8424889C2A251F9E00879877 /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8424889B2A251F9E00879877 /* TodoView.swift */; };
 		84426AE82A2B945800772F0C /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 84426AE72A2B945800772F0C /* SwipeCellKit */; };
 		84426AEA2A2B970E00772F0C /* SwipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84426AE92A2B970E00772F0C /* SwipeCell.swift */; };
+		847179552A2DD023005DE601 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847179542A2DD023005DE601 /* SwipeTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		842488992A251F8D00879877 /* TodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewController.swift; sourceTree = "<group>"; };
 		8424889B2A251F9E00879877 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		84426AE92A2B970E00772F0C /* SwipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCell.swift; sourceTree = "<group>"; };
+		847179542A2DD023005DE601 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				842488972A251F2E00879877 /* CustomViewController.swift */,
 				841677802A28DABE00BC90C8 /* CategoryViewController.swift */,
 				842488992A251F8D00879877 /* TodoViewController.swift */,
+				847179542A2DD023005DE601 /* SwipeTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 			files = (
 				84426AEA2A2B970E00772F0C /* SwipeCell.swift in Sources */,
 				8424889C2A251F9E00879877 /* TodoView.swift in Sources */,
+				847179552A2DD023005DE601 /* SwipeTableViewController.swift in Sources */,
 				8416775C2A27C30000BC90C8 /* DataModel.xcdatamodeld in Sources */,
 				8424889A2A251F8D00879877 /* TodoViewController.swift in Sources */,
 				842488962A251F2300879877 /* CustomView.swift in Sources */,
