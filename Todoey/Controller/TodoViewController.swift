@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class TodoListViewController: CustomViewController<TodoListView> {
+class TodoListViewController: SwipeTableViewController<TodoListView> {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var itemArray: [Item] = []
@@ -89,6 +89,26 @@ class TodoListViewController: CustomViewController<TodoListView> {
             print("\(error)")
         }
     }
+    
+    //MARK: Delete data from Swipe
+    override func updateModel(at indexPath: IndexPath) {
+        context.delete(self.itemArray[indexPath.row])
+        itemArray.remove(at: indexPath.row)
+        saveItems()
+    }
+    
+    //MARK: - Override tableView DataSource methods
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return itemArray.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        let item = itemArray[indexPath.row]
+        cell.textLabel?.text = item.title
+        cell.accessoryType = item.done == true ? .checkmark : .none
+        return cell
+    }
 }
 
 //MARK: - TodoListViewDelegate
@@ -97,21 +117,8 @@ extension TodoListViewController: TodoListViewDelegate {
     }
 }
 
-//MARK: - UITableViewDataSource, UITableViewDelegate
-extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "tableViewCell")
-        let item = itemArray[indexPath.row]
-        
-        cell.textLabel?.text = item.title
-        cell.accessoryType = item.done == true ? .checkmark : .none
-        
-        return cell
-    }
+//MARK: - UITableViewDelegate
+extension TodoListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -122,6 +129,10 @@ extension TodoListViewController: UITableViewDataSource, UITableViewDelegate {
         
         saveItems()
         customView.tableView.reloadData()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
 }
 
