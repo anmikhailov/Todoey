@@ -23,6 +23,7 @@
 		84426AE82A2B945800772F0C /* SwipeCellKit in Frameworks */ = {isa = PBXBuildFile; productRef = 84426AE72A2B945800772F0C /* SwipeCellKit */; };
 		84426AEA2A2B970E00772F0C /* SwipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84426AE92A2B970E00772F0C /* SwipeCell.swift */; };
 		847179552A2DD023005DE601 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847179542A2DD023005DE601 /* SwipeTableViewController.swift */; };
+		847179582A2DFBF3005DE601 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 847179572A2DFBF3005DE601 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		8424889B2A251F9E00879877 /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		84426AE92A2B970E00772F0C /* SwipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCell.swift; sourceTree = "<group>"; };
 		847179542A2DD023005DE601 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
+		847179572A2DFBF3005DE601 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				841677572A25ACF400BC90C8 /* DataModel */,
+				847179572A2DFBF3005DE601 /* CoreDataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				8424889A2A251F8D00879877 /* TodoViewController.swift in Sources */,
 				842488962A251F2300879877 /* CustomView.swift in Sources */,
 				841677812A28DABE00BC90C8 /* CategoryViewController.swift in Sources */,
+				847179582A2DFBF3005DE601 /* CoreDataManager.swift in Sources */,
 				8424887E2A251E5F00879877 /* AppDelegate.swift in Sources */,
 				842488802A251E5F00879877 /* SceneDelegate.swift in Sources */,
 				842488982A251F2E00879877 /* CustomViewController.swift in Sources */,

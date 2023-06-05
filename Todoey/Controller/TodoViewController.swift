@@ -6,15 +6,14 @@
 //
 
 import UIKit
-import CoreData
 
 class TodoListViewController: SwipeTableViewController<TodoListView> {
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let coreDataManager = CoreDataManager.shared
     var itemArray: [Item] = []
     var selectedCategory: Category? {
         didSet {
-            loadItems()
+           itemArray = coreDataManager.loadItems(selectedCategory: selectedCategory)
         }
     }
     
@@ -36,13 +35,9 @@ class TodoListViewController: SwipeTableViewController<TodoListView> {
             let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
             let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
                 
-                let newItem = Item(context: self.context)
-                newItem.title = textField.text!
-                newItem.done = false
-                newItem.parentCategory = self.selectedCategory
+                let newItem = self.coreDataManager.createItem(for: self.selectedCategory!, with: textField.text!)
                 
                 self.itemArray.append(newItem)
-                self.saveItems()
                 self.customView.tableView.reloadData()
             }
             
@@ -61,40 +56,10 @@ class TodoListViewController: SwipeTableViewController<TodoListView> {
         navigationController?.navigationBar.tintColor = .white
     }
     
-    //MARK: - Model Manipulation Methods
-    func saveItems() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context \(error)")
-        }
-    }
-    
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
-        
-        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-        
-        if let additionalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [
-                categoryPredicate,
-                additionalPredicate
-            ])
-        } else {
-            request.predicate = categoryPredicate
-        }
-        
-        do {
-            itemArray = try context.fetch(request)
-        } catch {
-            print("\(error)")
-        }
-    }
-    
     //MARK: Delete data from Swipe
     override func updateModel(at indexPath: IndexPath) {
-        context.delete(self.itemArray[indexPath.row])
+        coreDataManager.deleteItem(itemArray[indexPath.row])
         itemArray.remove(at: indexPath.row)
-        saveItems()
     }
     
     //MARK: - Override tableView DataSource methods
@@ -124,10 +89,8 @@ extension TodoListViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         itemArray[indexPath.row].done.toggle()
-//        context.delete(itemArray[indexPath.row])
-//        itemArray.remove(at: indexPath.row)
         
-        saveItems()
+        coreDataManager.saveContext()
         customView.tableView.reloadData()
     }
     
@@ -139,18 +102,13 @@ extension TodoListViewController: UITableViewDelegate {
 //MARK: - UISearchBarDelegate
 extension TodoListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
-        let searchPredicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-        
-        loadItems(with: request, predicate: searchPredicate)
-        
+        itemArray = coreDataManager.searchItems(text: searchBar.text!, selectedCategory: selectedCategory)
         customView.tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
-            loadItems()
+            itemArray = coreDataManager.loadItems(selectedCategory: selectedCategory)
             customView.tableView.reloadData()
             
             DispatchQueue.main.async {

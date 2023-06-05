@@ -6,11 +6,11 @@
 //
 
 import UIKit
-import CoreData
 
 class CategoryViewController: SwipeTableViewController<CategoryView> {
 
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    let coreDataManager = CoreDataManager.shared
+    
     var categoryArray: [Category] = []
 
     override func viewDidLoad() {
@@ -24,20 +24,17 @@ class CategoryViewController: SwipeTableViewController<CategoryView> {
         customView.tableView.dataSource = self
         customView.tableView.delegate = self
 
-        loadCategories()
+        categoryArray = coreDataManager.loadCategories()
     }
 
     func setupNavigationBar() {
         let addButtonAction = UIAction(title: "buttonAction") { (action) in
             var textField = UITextField()
             let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
-            let action = UIAlertAction(title: "Add Category", style: .default) { (action) in
-
-                let newCategory = Category(context: self.context)
-                newCategory.name = textField.text!
-
+            let action = UIAlertAction(title: "Create", style: .default) { (action) in
+                
+                let newCategory = self.coreDataManager.createCategory(with: textField.text!)
                 self.categoryArray.append(newCategory)
-                self.saveCategories()
                 self.customView.tableView.reloadData()
             }
 
@@ -56,27 +53,12 @@ class CategoryViewController: SwipeTableViewController<CategoryView> {
         navigationController?.navigationBar.tintColor = .white
     }
 
-    func saveCategories() {
-        do {
-            try context.save()
-        } catch {
-            print("Error saving context \(error)")
-        }
-    }
-
-    func loadCategories(with request: NSFetchRequest<Category> = Category.fetchRequest()) {
-        do {
-            categoryArray = try context.fetch(request)
-        } catch {
-            print("\(error)")
-        }
-    }
+    
 
     //MARK: Delete data from Swipe
     override func updateModel(at indexPath: IndexPath) {
-        context.delete(self.categoryArray[indexPath.row])
+        coreDataManager.deleteCategory(categoryArray[indexPath.row])
         categoryArray.remove(at: indexPath.row)
-        saveCategories()
     }
     
     //MARK: - Override tableView DataSource methods
