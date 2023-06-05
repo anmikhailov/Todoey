@@ -21,8 +21,6 @@ class CategoryViewController: SwipeTableViewController<CategoryView> {
 
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
 
-        customView.delegate = self
-
         customView.tableView.dataSource = self
         customView.tableView.delegate = self
 
@@ -91,12 +89,6 @@ class CategoryViewController: SwipeTableViewController<CategoryView> {
         let category = categoryArray[indexPath.row]
         cell.textLabel?.text = category.name
         return cell
-    }
-}
-
-//MARK: - CategoryViewDelegate
-extension CategoryViewController: CategoryViewDelegate {
-    func CategoryView(_ view: CategoryView, didTapButton button: UIButton) {
     }
 }
 

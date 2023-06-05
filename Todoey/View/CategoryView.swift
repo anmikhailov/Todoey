@@ -7,12 +7,7 @@
 
 import UIKit
 
-protocol CategoryViewDelegate: AnyObject {
-    func CategoryView(_ view: CategoryView, didTapButton button: UIButton)
-}
-
 class CategoryView: CustomView {
-    weak var delegate: CategoryViewDelegate?
     
     //MARK: - Variables
     lazy var tableView: UITableView = {
@@ -39,12 +34,5 @@ class CategoryView: CustomView {
             tableView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor),
         ])
-    }
-}
-
-//MARK: - Target Actions
-private extension CategoryView {
-    @objc func didTapButton(_ button: UIButton) {
-        delegate?.CategoryView(self, didTapButton: button)
     }
 }
