@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 class TodoListViewController: SwipeTableViewController<TodoListView> {
     
@@ -71,6 +72,13 @@ class TodoListViewController: SwipeTableViewController<TodoListView> {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         let item = itemArray[indexPath.row]
         cell.textLabel?.text = item.title
+        
+        let categoryColor = UIColor(hexString: selectedCategory?.color ?? "#FFFFFF")
+        if let color = categoryColor?.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(itemArray.count)) {
+            cell.backgroundColor = color
+            cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+        }
+        
         cell.accessoryType = item.done == true ? .checkmark : .none
         return cell
     }
