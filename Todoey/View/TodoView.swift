@@ -24,6 +24,7 @@ class TodoListView: CustomView {
     
     lazy var searchBar: UISearchBar = {
         let element = UISearchBar()
+        element.searchTextField.backgroundColor = .white
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()

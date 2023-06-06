@@ -20,14 +20,22 @@ class TodoListViewController: SwipeTableViewController<TodoListView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBarTitle(textLabel: "Items")
-        setupNavigationBar()
         
         customView.delegate = self
         
         customView.tableView.dataSource = self
         customView.tableView.delegate = self
         customView.searchBar.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigationBarTitle(textLabel: selectedCategory?.name ?? "")
+        setupNavigationBar()
+        
+        if let color = UIColor(hexString: selectedCategory?.color ?? "#FFFFFF") {
+            customView.bgNavBarImageView.backgroundColor = color
+            customView.searchBar.barTintColor = color
+        }
     }
     
     func setupNavigationBar() {
