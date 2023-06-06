@@ -17,11 +17,12 @@ class CustomViewController<V: CustomView>: UIViewController {
     }
     
     func setupNavigationBarTitle(textLabel: String) {
-        let label = UILabel()
-        label.textColor = .white
-        label.text = textLabel
-        label.font = .boldSystemFont(ofSize: 25)
-        label.textAlignment = .center
-        navigationItem.titleView = label
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        
+        let attributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.largeTitleTextAttributes = attributes
+        
+        title = textLabel
     }
 }

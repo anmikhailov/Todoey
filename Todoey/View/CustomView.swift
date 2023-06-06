@@ -39,7 +39,7 @@ class CustomView: UIView {
     func layoutViews() {
         NSLayoutConstraint.activate([
             bgNavBarImageView.topAnchor.constraint(equalTo: self.topAnchor),
-            bgNavBarImageView.heightAnchor.constraint(equalToConstant: 100),
+            bgNavBarImageView.heightAnchor.constraint(equalToConstant: 150),
             bgNavBarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             bgNavBarImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
         ])
