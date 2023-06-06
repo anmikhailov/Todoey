@@ -53,6 +53,7 @@ class CategoryViewController: SwipeTableViewController<CategoryView> {
                                      primaryAction: addButtonAction)
         navigationItem.rightBarButtonItem = button
         navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
 
     

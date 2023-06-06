@@ -31,11 +31,6 @@ class TodoListViewController: SwipeTableViewController<TodoListView> {
     override func viewWillAppear(_ animated: Bool) {
         setupNavigationBarTitle(textLabel: selectedCategory?.name ?? "")
         setupNavigationBar()
-        
-        if let color = UIColor(hexString: selectedCategory?.color ?? "#FFFFFF") {
-            customView.bgNavBarImageView.backgroundColor = color
-            customView.searchBar.barTintColor = color
-        }
     }
     
     func setupNavigationBar() {
@@ -62,7 +57,14 @@ class TodoListViewController: SwipeTableViewController<TodoListView> {
         let button = UIBarButtonItem(systemItem: .add,
                                      primaryAction: addButtonAction)
         navigationItem.rightBarButtonItem = button
-        navigationController?.navigationBar.tintColor = .white
+        
+        if let color = UIColor(hexString: selectedCategory?.color ?? "#FFFFFF") {
+            customView.bgNavBarImageView.backgroundColor = color
+            navigationController?.navigationBar.tintColor = ContrastColorOf(color, returnFlat: true)
+            customView.searchBar.barTintColor = color
+            
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(color, returnFlat: true)]
+        }
     }
     
     //MARK: Delete data from Swipe
