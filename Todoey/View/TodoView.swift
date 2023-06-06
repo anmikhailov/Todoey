@@ -17,7 +17,7 @@ class TodoListView: CustomView {
     //MARK: - Variables
     lazy var tableView: UITableView = {
         let element = UITableView()
-        
+        element.separatorStyle = .none
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()

@@ -15,9 +15,10 @@ class CoreDataManager {
 
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    func createCategory(with name: String) -> Category {
+    func createCategory(with name: String, color: String) -> Category {
         let newCategory = Category(context: context)
         newCategory.name = name
+        newCategory.color = color
         saveContext()
         
         return newCategory

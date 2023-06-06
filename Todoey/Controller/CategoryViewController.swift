@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 class CategoryViewController: SwipeTableViewController<CategoryView> {
 
@@ -33,7 +34,8 @@ class CategoryViewController: SwipeTableViewController<CategoryView> {
             let alert = UIAlertController(title: "Add New Category", message: "", preferredStyle: .alert)
             let action = UIAlertAction(title: "Create", style: .default) { (action) in
                 
-                let newCategory = self.coreDataManager.createCategory(with: textField.text!)
+                let newCategory = self.coreDataManager.createCategory(with: textField.text!,
+                                                                      color: UIColor.randomFlat().hexValue())
                 self.categoryArray.append(newCategory)
                 self.customView.tableView.reloadData()
             }
@@ -70,6 +72,7 @@ class CategoryViewController: SwipeTableViewController<CategoryView> {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         let category = categoryArray[indexPath.row]
         cell.textLabel?.text = category.name
+        cell.backgroundColor = UIColor(hexString: categoryArray[indexPath.row].color!)
         return cell
     }
 }
